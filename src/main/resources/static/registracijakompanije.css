@@ -1,0 +1,29 @@
+*{
+
+    font-family: sans-serif;
+
+}
+table{
+    width: 70%;
+    margin: 50px auto;
+    font-family: Georgia, serif;
+    border: 1px solid black;
+
+}
+#listaopreme{
+    width:70%;
+    text-align: center;
+    margin: 10px auto;
+    display: block;
+}
+table tr{
+    line-height: 3em;
+}
+body{
+
+
+    background:rgb(50,100,150);
+    background-size: cover;
+
+}
+

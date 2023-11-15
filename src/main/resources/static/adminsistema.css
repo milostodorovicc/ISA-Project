@@ -1,0 +1,47 @@
+*{
+
+    font-family: sans-serif;
+
+}
+
+
+
+
+*{
+
+
+    font-family:sans-serif;
+
+}
+
+body{
+
+
+    background:rgb(125,150,175);
+    background-size: cover;
+
+}
+.pocetna button{
+    font-size: 25px;
+    position:relative;
+    top:200px;
+    left:650px;
+    background-color:cornflowerblue;
+
+}
+#form1{
+    position:relative;
+    left:590px;
+}
+#reg1{
+    position:relative;
+    left:590px;
+}
+#adminpocetna{
+    position:relative;
+    left:430px;
+}
+#formadminkomp {
+    position: relative;
+    left: 430px;
+}
