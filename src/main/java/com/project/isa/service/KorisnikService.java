@@ -9,4 +9,10 @@ public interface KorisnikService {
 
     List<Oprema> svaoprema() throws Exception;
     Kompanija findOne(Long id);
+    List<Kompanija> kompanijesaidopremom(Long id);
+    List<Oprema> svaopremaponazivu(String oprema) throws Exception;
+    List<Oprema> svaopremapotipu(String tipopreme) throws Exception;
+    List<Oprema> svaopremapominoceni(Long minocena) throws Exception;
+    List<Oprema> kombinovanapretraga(String nazivopreme, String filtpotipu,String filtpooceni) throws Exception;
+
 }

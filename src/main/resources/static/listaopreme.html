@@ -8,12 +8,52 @@
 
     <script src="jquery.validate.min.js"></script>
     <script src = "listaopreme.js"></script>
+
 </head>
 <body>
 
-<h1 id ="listaopreme">Pretraga i filtriranje opreme</h1>
+<h1 id ="pretragaponazivu1">Pretraga i filtriranje opreme</h1>
+<form  id = "pretragaponazivu" >
 
-<table id = "odradjeni">
+    <label for="nazivopreme">Naziv opreme: </label>
+    <input id="nazivopreme" type="text" name="nazivopreme" placeholder="Unesite naziv opreme"
+           size="25" maxlength="35" required  />
+
+    <br/>
+    <br/>
+
+
+    <input type = "submit" value = "Pretrazi po nazivu">
+</form>
+<form  id = "filtrirajpotipu" >
+
+    <label for="filtpotipu">Tip opreme: </label>
+    <input id="filtpotipu" type="text" name="filtpotipu" placeholder="Unesite tip opreme"
+           size="25" maxlength="35" required  />
+
+    <br/>
+    <br/>
+
+
+    <input type = "submit" value = "Filtriraj po tipu">
+</form>
+
+
+
+<form  id = "filtrirajpooceni" >
+
+    <label for="filtpooceni">Min. ocena opreme opreme: </label>
+    <input id="filtpooceni" type="number" name="filtpooceni" placeholder="Unesite minimalnu ocenu opreme"
+           size="25" maxlength="35" required  />
+
+    <br/>
+    <br/>
+
+
+    <input type = "submit" value = "Pretrazi">
+</form>
+
+<table id = "oprematabela">
 
     <thead>
     <tr>
@@ -21,6 +61,7 @@
         <th>Tip</th>
         <th>Opis</th>
         <th>Ocena</th>
+        <th>Lista kompanija</th>
 
 
     </tr>
@@ -31,6 +72,6 @@
 
 
 </table>
-
+<button class = 'kombinovanapretraga'>Kombinovana pretraga</button>
 </body>
 </html>
