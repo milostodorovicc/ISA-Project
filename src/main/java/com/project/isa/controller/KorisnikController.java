@@ -1,18 +1,13 @@
 package com.project.isa.controller;
 
-import com.project.isa.entity.Kompanija;
-import com.project.isa.entity.KompanijaDTO;
-import com.project.isa.entity.Oprema;
-import com.project.isa.entity.OpremaDTO;
+import com.project.isa.entity.*;
+import com.project.isa.service.AdministratorsistemaService;
 import com.project.isa.service.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +17,15 @@ public class KorisnikController {
 
 
     private final KorisnikService korisnikService;
+    private final AdministratorsistemaService adminsistemaService;
+
 
 
 
     @Autowired
-    public KorisnikController(KorisnikService korisnikService) {
+    public KorisnikController(KorisnikService korisnikService, AdministratorsistemaService adminsistemaService) {
         this.korisnikService = korisnikService;
+        this.adminsistemaService = adminsistemaService;
     }
 
     @GetMapping(value = "/svaoprema", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -123,7 +121,23 @@ public class KorisnikController {
     }
 
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE, value = "/login")
+    public ResponseEntity<LoginDTO> potvrdilogin(@RequestBody Registrovanikorisnik regkorisnik) throws Exception {
+        Administratorsistema adminsistema = adminsistemaService.findadmin(regkorisnik);
+        if( adminsistema != null && adminsistema.getLogincounter() == 0)
+        {
+            throw new Exception("Prvi put se logujete, morate promeniti lozinku prvo!");
+        }
+        else {
+            LoginDTO loginDTO1 = new LoginDTO();
+            loginDTO1 = korisnikService.proveri(regkorisnik.getEmailadresa(), regkorisnik.getLozinka());
 
+
+            return new ResponseEntity<>(loginDTO1, HttpStatus.CREATED);
+        }
+
+    }
 
 
 

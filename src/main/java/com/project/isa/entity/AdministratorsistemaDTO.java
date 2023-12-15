@@ -1,49 +1,24 @@
 package com.project.isa.entity;
-import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+public class AdministratorsistemaDTO {
 
-@Entity
-public class Registrovanikorisnik {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column
     private String emailadresa;
-    @Column
+
     private String lozinka;
-    @Column
+
     private String ime;
-    @Column
+
     private String prezime;
-    @Column
+
     private String grad;
-    @Column
+
     private String drzava;
-    @Column
+
     private Long brojtelefona;
-    @Column
+
     private String zanimanje;
-    @Column
+
     private String infoopred;
-    @Enumerated(EnumType.STRING)
-    private Uloga uloga;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Kompanija kompanija;
-    @OneToMany(mappedBy ="regkorisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Termin> reztermini =  new HashSet<>();
-    @OneToMany(mappedBy ="regkorisnik1", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Zalba> zalbe =  new HashSet<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getEmailadresa() {
         return emailadresa;
@@ -117,40 +92,7 @@ public class Registrovanikorisnik {
         this.infoopred = infoopred;
     }
 
-    public Uloga getUloga() {
-        return uloga;
-    }
-
-    public void setUloga(Uloga uloga) {
-        this.uloga = uloga;
-    }
-
-    public Kompanija getKompanija() {
-        return kompanija;
-    }
-
-    public void setKompanija(Kompanija kompanija) {
-        this.kompanija = kompanija;
-    }
-
-    public Set<Termin> getReztermini() {
-        return reztermini;
-    }
-
-    public void setReztermini(Set<Termin> reztermini) {
-        this.reztermini = reztermini;
-    }
-
-    public Set<Zalba> getZalbe() {
-        return zalbe;
-    }
-
-    public void setZalbe(Set<Zalba> zalbe) {
-        this.zalbe = zalbe;
-    }
-
-    public Registrovanikorisnik(Long id, String emailadresa, String lozinka, String ime, String prezime, String grad, String drzava, Long brojtelefona, String zanimanje, String infoopred, Uloga uloga) {
-        this.id = id;
+    public AdministratorsistemaDTO(String emailadresa, String lozinka, String ime, String prezime, String grad, String drzava, Long brojtelefona, String zanimanje, String infoopred) {
         this.emailadresa = emailadresa;
         this.lozinka = lozinka;
         this.ime = ime;
@@ -160,10 +102,8 @@ public class Registrovanikorisnik {
         this.brojtelefona = brojtelefona;
         this.zanimanje = zanimanje;
         this.infoopred = infoopred;
-        this.uloga = uloga;
-
     }
 
-    public Registrovanikorisnik() {
+    public AdministratorsistemaDTO() {
     }
 }

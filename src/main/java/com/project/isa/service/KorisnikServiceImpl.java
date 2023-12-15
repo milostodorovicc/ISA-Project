@@ -1,9 +1,7 @@
 package com.project.isa.service;
 
-import com.project.isa.entity.Kompanija;
-import com.project.isa.entity.Oprema;
-import com.project.isa.repository.KompanijaRepository;
-import com.project.isa.repository.OpremaRepository;
+import com.project.isa.entity.*;
+import com.project.isa.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,11 +14,18 @@ public class KorisnikServiceImpl implements KorisnikService{
 
     private final OpremaRepository opremaRepository;
     private final KompanijaRepository kompanijaRepository;
+    private final RegistrovanikorisnikRepository regkorisnikRepository;
+    private final AdministratorsistemaRepository adminsistemaRepository;
+    private final AdministratorkompanijeRepository adminkompanijeRepository;
 
-    public KorisnikServiceImpl(OpremaRepository opremaRepository, KompanijaRepository kompanijaRepository) {
+
+    public KorisnikServiceImpl(OpremaRepository opremaRepository, KompanijaRepository kompanijaRepository, RegistrovanikorisnikRepository regkorisnikRepository, AdministratorsistemaRepository adminsistemaRepository, AdministratorkompanijeRepository adminkompanijeRepository) {
 
         this.kompanijaRepository = kompanijaRepository;
         this.opremaRepository = opremaRepository;
+        this.regkorisnikRepository = regkorisnikRepository;
+        this.adminsistemaRepository = adminsistemaRepository;
+        this.adminkompanijeRepository = adminkompanijeRepository;
     }
 
     @Override
@@ -127,6 +132,34 @@ public class KorisnikServiceImpl implements KorisnikService{
 
 
         return svaoprema1;
+
+    }
+
+
+
+
+    @Override
+    public LoginDTO proveri(String email, String lozinka) throws Exception{
+        LoginDTO loginDTO2 = new LoginDTO();
+        Registrovanikorisnik regkorisnik = regkorisnikRepository.findByEmailadresaAndLozinka(email, lozinka);
+        if(regkorisnik!= null){
+            loginDTO2.setEmailadresa(regkorisnik.getEmailadresa());
+            loginDTO2.setLozinka(regkorisnik.getLozinka());
+        }
+        Administratorsistema adminsistema = adminsistemaRepository.findByEmailadresaAndLozinka(email, lozinka);
+        if(adminsistema!= null){
+            loginDTO2.setLozinka(adminsistema.getLozinka());
+            loginDTO2.setLozinka(adminsistema.getLozinka());
+        }
+        Administratorkompanije adminkompanije = adminkompanijeRepository.findByEmailadresaAndLozinka(email, lozinka);
+        if(adminkompanije!=null){
+            loginDTO2.setEmailadresa(adminkompanije.getEmailadresa());
+            loginDTO2.setLozinka(adminkompanije.getLozinka());
+        }
+        if(loginDTO2.getEmailadresa()==null & loginDTO2.getLozinka()==null){
+            throw new Exception("Niste uneli tacno korisnicko ime ili lozinku!");
+        }
+        return loginDTO2;
 
     }
 }

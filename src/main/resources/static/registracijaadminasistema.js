@@ -1,8 +1,8 @@
-$(document).on("submit", "#formadminkomp", function (event) {
+$(document).on("submit", "#formadminsistema", function (event) {
     event.preventDefault();
-    let url = new URL('http://localhost:8011/api/adminsistema/adminkompanija');
-    url.searchParams.append('idkompanije', localStorage.getItem("kreiranakompanija"));
-
+    let url = new URL('http://localhost:8011/api/adminsistema/adminsistema1');
+    // url.searchParams.append('idkompanije', localStorage.getItem("kreiranakompanija"));
+    // zameni idkompanije sa idadmina kad napravis login da bi proverio da li je to predefinisani admin
 
     var emailadresa = $("#email").val();
     var lozinka = $("#lozinka").val();
@@ -11,12 +11,12 @@ $(document).on("submit", "#formadminkomp", function (event) {
     var grad = $("#grad").val();
     var drzava = $("#drzava").val();
     var brojtelefona = $("#brojtelefona").val();
-    var uloga = "ADMINKOMPANIJE";
+    var uloga = "ADMINSISTEMA";
 
 
 
 
-    var noviadminkompanije = {
+    var noviadminsistema= {
 
         emailadresa,
         lozinka,
@@ -29,7 +29,7 @@ $(document).on("submit", "#formadminkomp", function (event) {
 
 
     }
-    console.log(noviadminkompanije);
+    console.log(noviadminsistema);
     alert("abcabc");
 
     $.ajax({
@@ -37,12 +37,13 @@ $(document).on("submit", "#formadminkomp", function (event) {
         url: url,
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify(noviadminkompanije),
+        data: JSON.stringify(noviadminsistema),
         success: function (res) {
             console.log(res);
-            alert("Admin kompanije je uspesno kreiran!");
+            alert("Admin sistema je uspesno kreiran!");
 
-            window.location.href = "registracijaadminakompanije.html";
+            window.location.href = "registracijaadminasistema.html";
+
 
         },
         error: function () {

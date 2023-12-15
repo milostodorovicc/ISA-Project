@@ -15,4 +15,7 @@ public class Termin {
     private Date datumivreme;
     @Column
     private Long trajanjeuh;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Registrovanikorisnik regkorisnik;
 }
