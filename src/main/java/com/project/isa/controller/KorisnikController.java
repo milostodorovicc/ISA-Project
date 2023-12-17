@@ -125,17 +125,20 @@ public class KorisnikController {
             produces = MediaType.APPLICATION_JSON_VALUE, value = "/login")
     public ResponseEntity<LoginDTO> potvrdilogin(@RequestBody Registrovanikorisnik regkorisnik) throws Exception {
         Administratorsistema adminsistema = adminsistemaService.findadmin(regkorisnik);
-        if( adminsistema != null && adminsistema.getLogincounter() == 0)
-        {
-            throw new Exception("Prvi put se logujete, morate promeniti lozinku prvo!");
-        }
-        else {
-            LoginDTO loginDTO1 = new LoginDTO();
-            loginDTO1 = korisnikService.proveri(regkorisnik.getEmailadresa(), regkorisnik.getLozinka());
-
-
-            return new ResponseEntity<>(loginDTO1, HttpStatus.CREATED);
-        }
+        LoginDTO loginDTO1 = new LoginDTO();
+        loginDTO1 = korisnikService.proveri(regkorisnik.getEmailadresa(), regkorisnik.getLozinka());
+        return new ResponseEntity<>(loginDTO1, HttpStatus.CREATED);
+//        if( adminsistema != null && adminsistema.getLogincounter() == 0)
+//        {
+//            throw new Exception("Prvi put se logujete, morate promeniti lozinku prvo!");
+//        }
+//        else {
+////            LoginDTO loginDTO1 = new LoginDTO();
+//            loginDTO1 = korisnikService.proveri(regkorisnik.getEmailadresa(), regkorisnik.getLozinka());
+//
+//
+//            return new ResponseEntity<>(loginDTO1, HttpStatus.CREATED);
+//        }
 
     }
 

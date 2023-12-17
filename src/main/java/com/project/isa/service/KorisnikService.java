@@ -1,5 +1,6 @@
 package com.project.isa.service;
 
+import com.project.isa.entity.EmailRequest;
 import com.project.isa.entity.Kompanija;
 import com.project.isa.entity.LoginDTO;
 import com.project.isa.entity.Oprema;
@@ -16,5 +17,7 @@ public interface KorisnikService {
     List<Oprema> svaopremapominoceni(Long minocena) throws Exception;
     List<Oprema> kombinovanapretraga(String nazivopreme, String filtpotipu,String filtpooceni) throws Exception;
     LoginDTO proveri(String email, String lozinka) throws Exception;
+
+
 
 }

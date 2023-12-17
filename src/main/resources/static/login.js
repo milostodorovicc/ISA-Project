@@ -30,13 +30,33 @@ $(document).on("submit", "#loginforma", function (event) {
         data: JSON.stringify(login),
         success: function (res) {
             console.log(res);
-            alert("Uspesno ste se prijavili!");
-            alert(res);
-            window.location.href = "login.html";
+            if(res.uloga === "ADMINSISTEMA" && res.logcounter===0){
+                alert("Promenite lozinku!")
+                window.location.href = "promenalozinkeadminsistema.html?emailadresa="+ emailadresa;
+            }
+            else {
+                alert("Uspesno ste se prijavili!");
+                alert(res);
+
+                if (res.uloga === "ADMINSISTEMA") {
+                    localStorage.setItem("id", res.id);
+                    localStorage.setItem("uloga", "ADMINSISTEMA");
+                    window.location.href = "adminsistema.html"
+                } else if (res.uloga === "ADMINKOMPANIJE") {
+                    localStorage.setItem("id", res.id);
+                    localStorage.setItem("uloga", "ADMINKOMPANIJE");
+                    window.location.href = "login.html"
+                } else {
+                    localStorage.setItem("id", res.id);
+                    localStorage.setItem("uloga", "REGKORISNIK");
+                    window.location.href = "login.html"
+                }
+            }
+
 
         },
         error: function () {
-            alert("Greška!");
-            window.location.href = "promenalozinkeadminsistema.html?emailadresa="+ emailadresa;
+            alert("Niste uneli tacan email ili lozinku!");
+            window.location.href = "login.html";
         }
     } )})

@@ -143,16 +143,23 @@ public class KorisnikServiceImpl implements KorisnikService{
         LoginDTO loginDTO2 = new LoginDTO();
         Registrovanikorisnik regkorisnik = regkorisnikRepository.findByEmailadresaAndLozinka(email, lozinka);
         if(regkorisnik!= null){
+            loginDTO2.setId(regkorisnik.getId());
+            loginDTO2.setUloga(regkorisnik.getUloga());
             loginDTO2.setEmailadresa(regkorisnik.getEmailadresa());
             loginDTO2.setLozinka(regkorisnik.getLozinka());
         }
         Administratorsistema adminsistema = adminsistemaRepository.findByEmailadresaAndLozinka(email, lozinka);
         if(adminsistema!= null){
+            loginDTO2.setId(adminsistema.getId());
+            loginDTO2.setUloga(adminsistema.getUloga());
+            loginDTO2.setEmailadresa(adminsistema.getEmailadresa());
             loginDTO2.setLozinka(adminsistema.getLozinka());
-            loginDTO2.setLozinka(adminsistema.getLozinka());
+            loginDTO2.setLogcounter(adminsistema.getLogincounter());
         }
         Administratorkompanije adminkompanije = adminkompanijeRepository.findByEmailadresaAndLozinka(email, lozinka);
         if(adminkompanije!=null){
+            loginDTO2.setId(adminkompanije.getId());
+            loginDTO2.setUloga(adminkompanije.getUloga());
             loginDTO2.setEmailadresa(adminkompanije.getEmailadresa());
             loginDTO2.setLozinka(adminkompanije.getLozinka());
         }

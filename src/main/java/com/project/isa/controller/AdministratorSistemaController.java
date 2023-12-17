@@ -4,10 +4,17 @@ import com.project.isa.entity.*;
 import com.project.isa.service.AdministratorsistemaService;
 import com.project.isa.service.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -53,7 +60,7 @@ public class AdministratorSistemaController {
     public ResponseEntity<AdministratorsistemaDTO> createAdministratorsistema(@RequestBody Administratorsistema adminsistema) throws Exception {
 
 
-
+        adminsistema.setLogincounter(0);
         Administratorsistema noviadminsistema = adminSistemaService.createadminsistema(adminsistema);
         AdministratorsistemaDTO noviadminsistema1 = new AdministratorsistemaDTO(noviadminsistema.getEmailadresa(), noviadminsistema.getLozinka(),noviadminsistema.getIme(), noviadminsistema.getPrezime(), noviadminsistema.getGrad(), noviadminsistema.getDrzava(), noviadminsistema.getBrojtelefona(), noviadminsistema.getZanimanje(), noviadminsistema.getInfoopred());
 
@@ -94,4 +101,31 @@ public class AdministratorSistemaController {
 
         return new ResponseEntity<>(noviadmin1, HttpStatus.CREATED);
     }
+
+
+    @GetMapping(value = "/{zalbe}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<ZalbaDTO>> svezalbe() throws Exception {
+
+        Set<ZalbaDTO> svezalbe = adminSistemaService.findzalbe();
+
+
+        return new ResponseEntity<>(svezalbe, HttpStatus.OK);
+    }
+
+
+    @GetMapping(value = "/svitermini", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TerminDTO>> svitermini(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
+                                                      @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end) throws Exception {
+
+        List<TerminDTO> svitermini12 = new ArrayList<>();
+        List<Termin> svitermini1 = this.adminSistemaService.sviterminiizmedjudatuma(start,end);
+        for(Termin termin2: svitermini1){
+            TerminDTO termin23 = new TerminDTO(termin2.getRegkorisnik().getIme(),termin2.getRegkorisnik().getPrezime(),termin2.getStartTime(),termin2.getEndTime());
+            svitermini12.add(termin23);
+        }
+
+        return new ResponseEntity<>(svitermini12, HttpStatus.OK);
+
+    }
+
 }
