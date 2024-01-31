@@ -45,7 +45,7 @@ $(document).on("submit", "#loginforma", function (event) {
                 } else if (res.uloga === "ADMINKOMPANIJE") {
                     localStorage.setItem("id", res.id);
                     localStorage.setItem("uloga", "ADMINKOMPANIJE");
-                    window.location.href = "login.html"
+                    window.location.href = "adminkompanije.html"
                 } else {
                     localStorage.setItem("id", res.id);
                     localStorage.setItem("uloga", "REGKORISNIK");

@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Termin {
 
@@ -22,9 +25,22 @@ public class Termin {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Registrovanikorisnik regkorisnik;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    private Registrovanikorisnik regkorisnik;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Administratorkompanije administratorkompanije;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rezervacija_id", referencedColumnName = "id")
+    private Rezervacija rezervacija;
+
+//    @ManyToMany
+//    @JoinTable(name = "terminioprema",
+//            joinColumns = @JoinColumn(name = "termin_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "oprema_id", referencedColumnName = "id"))
+//    private Set<Oprema> oprema1 = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -66,23 +82,44 @@ public class Termin {
         this.endTime = endTime;
     }
 
-    public Registrovanikorisnik getRegkorisnik() {
-        return regkorisnik;
-    }
-
-    public void setRegkorisnik(Registrovanikorisnik regkorisnik) {
-        this.regkorisnik = regkorisnik;
-    }
 
     public Termin() {
     }
 
-    public Termin(Long id, String imeadministratora, String prezimeadministratora, LocalDateTime startTime, LocalDateTime endTime, Registrovanikorisnik regkorisnik) {
+    public Rezervacija getRezervacija() {
+        return rezervacija;
+    }
+
+    public void setRezervacija(Rezervacija rezervacija) {
+        this.rezervacija = rezervacija;
+    }
+
+    public Administratorkompanije getAdministratorkompanije() {
+        return administratorkompanije;
+    }
+
+    public void setAdministratorkompanije(Administratorkompanije administratorkompanije) {
+        this.administratorkompanije = administratorkompanije;
+    }
+
+//    public Termin(Long id, String imeadministratora, String prezimeadministratora, LocalDateTime startTime, LocalDateTime endTime, Registrovanikorisnik regkorisnik) {
+//        this.id = id;
+//        this.imeadministratora = imeadministratora;
+//        this.prezimeadministratora = prezimeadministratora;
+//        this.startTime = startTime;
+//        this.endTime = endTime;
+//        this.regkorisnik = regkorisnik;
+//    }
+
+
+    public Termin(Long id, String imeadministratora, String prezimeadministratora, LocalDateTime startTime, LocalDateTime endTime, Registrovanikorisnik regkorisnik, Administratorkompanije administratorkompanije) {
         this.id = id;
         this.imeadministratora = imeadministratora;
         this.prezimeadministratora = prezimeadministratora;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.regkorisnik = regkorisnik;
+        this.administratorkompanije = administratorkompanije;
     }
+
+
 }

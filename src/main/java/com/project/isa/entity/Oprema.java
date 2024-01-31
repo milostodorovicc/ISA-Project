@@ -1,5 +1,8 @@
 package com.project.isa.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -24,9 +27,14 @@ public class Oprema {
     @Column
     private float ocena;
 
+    @Column
+    private Integer kolicina;
+
     @ManyToMany(mappedBy = "oprema")
     private Set<Kompanija> kompanije = new HashSet<>();
 
+    @ManyToMany(mappedBy = "oprema1")
+    private Set<Rezervacija> rezervacije = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -87,5 +95,15 @@ public class Oprema {
         this.ocena = ocena;
         this.kompanije = kompanije;
     }
+
+
+    public Integer getKolicina() {
+        return kolicina;
+    }
+
+    public void setKolicina(Integer kolicina) {
+        this.kolicina = kolicina;
+    }
+
 
 }

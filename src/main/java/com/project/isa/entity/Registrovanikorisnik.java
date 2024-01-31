@@ -27,13 +27,15 @@ public class Registrovanikorisnik {
     @Column
     private String zanimanje;
     @Column
+    private Integer brojpenala;
+    @Column
     private String infoopred;
     @Enumerated(EnumType.STRING)
     private Uloga uloga;
     @ManyToOne(fetch = FetchType.EAGER)
     private Kompanija kompanija;
     @OneToMany(mappedBy ="regkorisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Termin> reztermini =  new HashSet<>();
+    private Set<Rezervacija> rezervacije1 =  new HashSet<>();
     @OneToMany(mappedBy ="regkorisnik1", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Zalba> zalbe =  new HashSet<>();
 
@@ -133,13 +135,7 @@ public class Registrovanikorisnik {
         this.kompanija = kompanija;
     }
 
-    public Set<Termin> getReztermini() {
-        return reztermini;
-    }
 
-    public void setReztermini(Set<Termin> reztermini) {
-        this.reztermini = reztermini;
-    }
 
     public Set<Zalba> getZalbe() {
         return zalbe;
@@ -165,5 +161,13 @@ public class Registrovanikorisnik {
     }
 
     public Registrovanikorisnik() {
+    }
+
+    public Integer getBrojpenala() {
+        return brojpenala;
+    }
+
+    public void setBrojpenala(Integer brojpenala) {
+        this.brojpenala = brojpenala;
     }
 }

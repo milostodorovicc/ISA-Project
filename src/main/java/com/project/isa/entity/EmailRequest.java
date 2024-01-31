@@ -1,6 +1,9 @@
 package com.project.isa.entity;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDateTime;
 
 
 public class EmailRequest {
@@ -9,6 +12,9 @@ public class EmailRequest {
     private String subject;
     private String body;
     private String idsender;
+    private LocalDateTime poctermina;
+    private LocalDateTime krajtermina;
+    private MultipartFile attachment;
 
     public void ailSender(){
 }
@@ -51,5 +57,21 @@ public class EmailRequest {
 
     public void setIdsender(String idsender) {
         this.idsender = idsender;
+    }
+
+    public LocalDateTime getPoctermina() {
+        return poctermina;
+    }
+
+    public void setPoctermina(LocalDateTime poctermina) {
+        this.poctermina = poctermina;
+    }
+
+    public LocalDateTime getKrajtermina() {
+        return krajtermina;
+    }
+
+    public void setKrajtermina(LocalDateTime krajtermina) {
+        this.krajtermina = krajtermina;
     }
 }

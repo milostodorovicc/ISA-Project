@@ -2,6 +2,8 @@ package com.project.isa.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -34,6 +36,9 @@ public class Administratorkompanije {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Kompanija kompanija;
+
+    @OneToMany(mappedBy ="administratorkompanije", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Termin> reztermini1 =  new HashSet<>();
 
 
     public Long getId() {
@@ -130,6 +135,14 @@ public class Administratorkompanije {
 
     public void setKompanija(Kompanija kompanija) {
         this.kompanija = kompanija;
+    }
+
+    public Set<Termin> getReztermini1() {
+        return reztermini1;
+    }
+
+    public void setReztermini1(Set<Termin> reztermini1) {
+        this.reztermini1 = reztermini1;
     }
 
     public Administratorkompanije() {

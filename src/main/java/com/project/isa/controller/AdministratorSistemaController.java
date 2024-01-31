@@ -120,7 +120,7 @@ public class AdministratorSistemaController {
         List<TerminDTO> svitermini12 = new ArrayList<>();
         List<Termin> svitermini1 = this.adminSistemaService.sviterminiizmedjudatuma(start,end);
         for(Termin termin2: svitermini1){
-            TerminDTO termin23 = new TerminDTO(termin2.getRegkorisnik().getIme(),termin2.getRegkorisnik().getPrezime(),termin2.getStartTime(),termin2.getEndTime());
+            TerminDTO termin23 = new TerminDTO(termin2.getAdministratorkompanije().getIme(),termin2.getAdministratorkompanije().getPrezime(),termin2.getStartTime(),termin2.getEndTime());
             svitermini12.add(termin23);
         }
 

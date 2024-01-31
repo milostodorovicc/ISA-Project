@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Properties;
 
@@ -48,7 +49,21 @@ public class EmailController {
     }
 
 
+    @PostMapping("/send-emailwithatachment")
+    public String sendEmailwithatachment(@RequestBody EmailRequest emailRequest, MultipartFile attachment ) {
 
+        try {
+
+            Long l = Long.parseLong(emailRequest.getIdsender());
+            Registrovanikorisnik sender = administratorsistemaService.findOne(l);
+            emailService.sendemail(emailRequest, sender);
+
+            return "Email sent successfully!";
+        } catch (Exception e) {
+            return "Error sending email: " + e.getMessage();
+        }
+
+    }
 
 
 
