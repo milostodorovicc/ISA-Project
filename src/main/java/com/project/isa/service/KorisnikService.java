@@ -1,9 +1,6 @@
 package com.project.isa.service;
 
-import com.project.isa.entity.EmailRequest;
-import com.project.isa.entity.Kompanija;
-import com.project.isa.entity.LoginDTO;
-import com.project.isa.entity.Oprema;
+import com.project.isa.entity.*;
 
 import java.util.List;
 
@@ -17,6 +14,7 @@ public interface KorisnikService {
     List<Oprema> svaopremapominoceni(Long minocena) throws Exception;
     List<Oprema> kombinovanapretraga(String nazivopreme, String filtpotipu,String filtpooceni) throws Exception;
     LoginDTO proveri(String email, String lozinka) throws Exception;
+    void definisikategorije(String granica1, String granica2, String granica3, String granica4) throws Exception;
 
 
 

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface AdministratorkompanijeService {
-   RezervacijaDTO findrezervacija(String id, String idopreme);
-   String obrisiopremu(Long idopreme);
-   RezervacijaDTO findrezervacija1(Long opremaid, Long korisnikid, Long terminid);
+   RezervacijaDTO findrezervacija(String id, List<String> idopremesvi) throws Exception;
+   List<OpremaDTO> obrisiopremu(String idopreme, Long idkorisnik);
+   RezervacijaDTO findrezervacija1(String opremaid, Long korisnikid, Long terminid);
 }

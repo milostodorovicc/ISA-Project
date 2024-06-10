@@ -140,8 +140,27 @@ public class KorisnikController {
 //            return new ResponseEntity<>(loginDTO1, HttpStatus.CREATED);
 //        }
 
+
+
+
+
     }
 
 
+
+
+
+
+    @PostMapping(
+            produces = MediaType.APPLICATION_JSON_VALUE, value = "/definisikategorije")
+    public void definisikategorije(@RequestParam(value = "granica1") String granica1,@RequestParam(value = "granica2") String granica2,@RequestParam(value = "granica3") String granica3,@RequestParam(value = "granica4") String granica4) throws Exception {
+        korisnikService.definisikategorije(granica1,granica2,granica3,granica4);
+
+
+//        return new ResponseEntity<>(loginDTO1, HttpStatus.CREATED);
+
+
+
+    }
 
 }

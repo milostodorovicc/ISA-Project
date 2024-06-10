@@ -42,12 +42,12 @@ public class AdministratorKompanijeController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE, value = "/obrisiopremu")
-    public ResponseEntity<String> obrisiopremu( @RequestParam(value = "opremaid") Long idopreme) throws Exception {
+    public ResponseEntity<List<OpremaDTO>> obrisiopremu( @RequestParam(value = "opremaid") String idopreme, @RequestParam(value = "korisnikid") Long idkorisnik) throws Exception {
 
-        String obrisanaoprema = adminKompanijeService.obrisiopremu(idopreme);
+        List<OpremaDTO> obrisanaoprema = adminKompanijeService.obrisiopremu(idopreme,idkorisnik);
 
 
-        return new ResponseEntity<>(obrisanaoprema, HttpStatus.CREATED);
+        return new ResponseEntity<>(obrisanaoprema, HttpStatus.OK);
     }
 
 
@@ -55,7 +55,7 @@ public class AdministratorKompanijeController {
 
 
     @GetMapping(value = "/{rezervacija}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RezervacijaDTO> rezervacija(@RequestParam(value = "opremaid") Long opremaid,@RequestParam(value = "korisnikid") Long korisnikid,@RequestParam(value = "terminid") Long terminid) throws Exception {
+    public ResponseEntity<RezervacijaDTO> rezervacija(@RequestParam(value = "opremaid") String opremaid,@RequestParam(value = "korisnikid") Long korisnikid,@RequestParam(value = "terminid") Long terminid) throws Exception {
 
         RezervacijaDTO rez2 = adminKompanijeService.findrezervacija1(opremaid,korisnikid,terminid);
 

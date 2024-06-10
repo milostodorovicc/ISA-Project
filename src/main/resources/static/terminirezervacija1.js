@@ -38,51 +38,58 @@ function scanQRCode(qrCodeData) {
     const formData = new FormData();
     formData.append('files', dataURItoBlob(qrCodeData));
 
-    fetch('/upload', {
-        method: 'POST',
-        body: formData
+    let url1 = new URL('http://localhost:8011/api/qrcode/upload');
+
+    $.ajax({
+
+        url: url1,
+        type: 'POST',
+        data: formData,
+        contentType: false, // Important: Let the browser set the Content-Type
+        processData: false, // Important: Don't process data (FormData)
+
+        success: function (response) {
+            console.log(response);
+            let str = response.idopremesva;
+            alert(str);
+            str = str.slice(0,str.lastIndexOf(";"));
+            alert(str);
+            let str1 ="";
+            for ( let i = 0; i < response.idopremesva.length; i++) {
+                str1 = str1+response.idopremesva[i]+",";
+            }
+
+            window.location.href = "rezervacija.html?opremaid=" + str1 + "&korisnikid=" + response.idkorisnika + "&terminid=" + response.idtermina;
+        },
+        error: function () {
+            alert('Rok za preuzimanje opreme je prosao!');
+        }
+
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log('QR Code Contents:', data);
-            window.location.href = "rezervacija.html?opremaid="+ data.idopreme +"&korisnikid="+data.idkorisnika+"&terminid="+data.idtermina;
-            // alert(data);
-            // let tabela = "<table id='table'></table>"
-            //
-            // document.getElementById('qrCodeContainer').appendChild(tabela);
-            // let row = "<tr>";
-            // row += "<td>" + data.imekorisnika + "</td>";
-            // row += "<td >" + data.prezimekorisnika + "</td>";
-            // row += "<td >" + data.pocetaktermina + "</td>";
-            // row += "<td >" + data.krajtermina + "</td>";
-            // row += "<td >" + data.idopreme + "</td>";
-            // row += "</tr>";
-            // $('#table').append(row);
-            // podaci = data.idopreme
-            // readButton1.textContent = "Korisnik se pojavio";
-            // readButton1.onclick = (function(opt) {
-            //
-            //     return function() {
-            //         pojaviose(opt);
-            //
-            //     };
-            // })(podaci)
-            // document.getElementById("qrCodeContainer").appendChild(1);
-            // podaci2 = data.idkorisnika
-            // readButton2.textContent = "Read QR Code";
-            // readButton2.onclick = (function(opt) {
-            //
-            //     return function() {
-            //         nijesepojavio(opt);
-            //
-            //     };
-            // })(podaci2)
-            // document.getElementById("qrCodeContainer").appendChild(readButton2);
-        })
-        .catch(error => {
-            console.error('Error uploading files:');
-        });
+
+
 }
+
+
+
+
+    // fetch('/upload', {
+    //     method: 'POST',
+    //     body: formData
+    // })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if(data.success) {
+    //             console.log('QR Code Contents:', data);
+    //             window.location.href = "rezervacija.html?opremaid=" + data.idopreme + "&korisnikid=" + data.idkorisnika + "&terminid=" + data.idtermina;
+    //         }
+    //         else
+    //         {alert('Rok za preuzimanje opreme je prosao!');}
+    //     })
+    //     .catch(error => {
+    //         console.error('Rok za preuzimanje opreme je prosao dodeljena su vam 2 penala!');
+    //     });
+// }
 function pojaviose(podaci) {
 
     let url = new URL('http://localhost:8011/api/adminkompanije/obrisiopremu');

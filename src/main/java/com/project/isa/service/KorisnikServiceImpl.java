@@ -169,4 +169,32 @@ public class KorisnikServiceImpl implements KorisnikService{
         return loginDTO2;
 
     }
+
+
+
+
+
+    @Override
+    public void definisikategorije(String granica1, String granica2, String granica3, String granica4) throws Exception{
+
+
+
+        String[] stringsToSave = {granica1, granica2, granica3, granica4};
+
+        // Specify the file path
+        String filePath = "output.txt";
+
+        // Create an instance of the repository
+        KategorijeRepository repository = new KategorijeRepository(filePath);
+
+        // Save the strings using the repository
+        repository.saveStringsToFile(stringsToSave);
+
+
+
+
+
+//        return svaoprema1;
+
+    }
 }

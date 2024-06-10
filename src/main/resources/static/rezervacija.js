@@ -26,7 +26,8 @@ $(document).ready(function (){
                 row += "<td>" + res.prezimekorisnika + "</td>";
                 row += "<td>" + res.pocetaktermina + "</td>";
                 row += "<td>" + res.krajtermina + "</td>";
-                row += "<td>" + res.idopreme + "</td>";
+                row += "<td>" + res.idopremesva + "</td>";
+                row += "<td>" + res.naziviopremesvi + "</td>";
                 row += "</tr>";
                 $('#rezervacija').append(row);
                 row1 = '<button class="'+"pojaviose"+'">Obrisi opremu</button>';
@@ -43,7 +44,9 @@ $(document).on('click', '.pojaviose', function (){
     let url = new URL('http://localhost:8011/api/adminkompanije/obrisiopremu');
     let urlParams = new URLSearchParams(window.location.search);
     let opremaid = urlParams.get('opremaid');
+    let korisnikid = urlParams.get('korisnikid');
     url.searchParams.append('opremaid', opremaid);
+    url.searchParams.append('korisnikid', korisnikid);
 
     alert(url);
     $.ajax({

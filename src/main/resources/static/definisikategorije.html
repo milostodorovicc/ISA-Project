@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Definisi kategorije</title>
+  <link rel = "stylesheet" type = "text/css">
+  <script src="jquery.min.js"></script>
+
+  <script src="jquery.validate.min.js"></script>
+  <script src = "definisikategorije.js"></script>
+
+  <style>
+    .container {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .text-between {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!--<div class="container">-->
+<!--  <input type="text" id="granica1" placeholder="Granica 1"><br>-->
+<!--  <div class="text-between">Regular</div>-->
+<!--  <input type="text" id="granica2" placeholder="Granica2"><br>-->
+<!--  <div class="text-between">Silver</div>-->
+<!--  <input type="text" id="granica3" placeholder="Granica 3"><br>-->
+<!--  <div class="text-between">Gold</div>-->
+<!--  <input type="text" id="granica4" placeholder="Granica 4"><br>-->
+<!--</div>-->
+
+
+
+
+
+
+<form  id = "definisikategorije" >
+
+  <label for="granica1">Granica 1: </label>
+  <input id="granica1" type="number" name="granica1" placeholder="Unesite granicu 1"
+         size="25" maxlength="35" required  />
+
+  <div class="text-between">Regular</div>
+
+  <label for="granica2">Granica 2: </label>
+  <input id="granica2" type="number" name="granica2" placeholder="Unesite granicu 2"
+         size="25" maxlength="35" required  />
+
+
+  <div class="text-between">Silver</div>
+
+  <label for="granica3">Granica 3: </label>
+  <input id="granica3" type="number" name="granica3" placeholder="Unesite granicu 3"
+         size="25" maxlength="35" required  />
+
+
+  <div class="text-between">Gold</div>
+
+
+
+  <label for="granica4">Granica 4: </label>
+  <input id="granica4" type="number" name="granica4" placeholder="Unesite granicu 4"
+         size="25" maxlength="35" required  />
+
+  <br/>
+  <br/>
+
+  <input type = "submit" value = "Definisi kategorije">
+</form>
+</body>
+</html>
