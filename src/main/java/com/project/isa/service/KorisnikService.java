@@ -14,7 +14,7 @@ public interface KorisnikService {
     List<Oprema> svaopremapominoceni(Long minocena) throws Exception;
     List<Oprema> kombinovanapretraga(String nazivopreme, String filtpotipu,String filtpooceni) throws Exception;
     LoginDTO proveri(String email, String lozinka) throws Exception;
-    void definisikategorije(String granica1, String granica2, String granica3, String granica4) throws Exception;
+    String definisikategorije(String granica1, String granica2, String granica3, String granica4, String brojpoena) throws Exception;
 
 
 

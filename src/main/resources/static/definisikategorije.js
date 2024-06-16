@@ -4,11 +4,13 @@ $(document).on("submit", "#definisikategorije", function (event) {
     var granica2 = document.getElementById("granica2").value;
     var granica3 = document.getElementById("granica3").value;
     var granica4 = document.getElementById("granica4").value;
+    var brojpoena = document.getElementById("brojpoena").value;
     let url = new URL('http://localhost:8011/api/korisnik/definisikategorije');
     url.searchParams.append('granica1', granica1);
     url.searchParams.append('granica2', granica2);
     url.searchParams.append('granica3', granica3);
     url.searchParams.append('granica4', granica4);
+    url.searchParams.append('brojpoena', brojpoena);
 
 
 
@@ -18,7 +20,7 @@ $(document).on("submit", "#definisikategorije", function (event) {
     $.ajax({
         type: "POST",
         url: url,
-        dataType: "json",
+        dataType: "text",
 
 
         success: function (res) {

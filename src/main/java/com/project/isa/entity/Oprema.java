@@ -28,6 +28,9 @@ public class Oprema {
     private float ocena;
 
     @Column
+    private int cena;
+
+    @Column
     private Integer kolicina;
 
     @ManyToMany(mappedBy = "oprema")
@@ -105,5 +108,11 @@ public class Oprema {
         this.kolicina = kolicina;
     }
 
+    public int getCena() {
+        return cena;
+    }
 
+    public void setCena(int cena) {
+        this.cena = cena;
+    }
 }

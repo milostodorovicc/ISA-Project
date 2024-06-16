@@ -9,11 +9,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class AdministratorkompanijeServiceImpl implements AdministratorkompanijeService{
@@ -95,6 +94,13 @@ public class AdministratorkompanijeServiceImpl implements Administratorkompanije
             throw new Exception("Zakasnili ste na termin dodeljena su vam 2 penala!");
         }
 
+
+
+        if(regkorisnik.getBrojpenala()>10)
+        {
+            throw new Exception("Ne mozete preuzeti opremu zbog broja penala");
+        }
+
         return rez1;
 
 
@@ -106,7 +112,7 @@ public class AdministratorkompanijeServiceImpl implements Administratorkompanije
 
 
     @Override
-    public List<OpremaDTO> obrisiopremu(String idopreme, Long idkorisnik) {
+    public List<OpremaDTO> obrisiopremu(String idopreme, Long idkorisnik) throws IOException {
 //        List<Oprema> svaoprema = opremaRepository.findAll();
 //        List<Oprema> svaoprema1 = new ArrayList<>();
 //        for(Oprema oprema: svaoprema){
@@ -121,9 +127,11 @@ public class AdministratorkompanijeServiceImpl implements Administratorkompanije
 //        }
 
 
+
         String[] parts = idopreme.split(",");
         int a = 0;
         List<OpremaDTO> svaopremaDTO = new ArrayList<OpremaDTO>();
+        int ukupnacena = 0;
         while (a<parts.length)
         {
             Long l = Long.parseLong(parts[a]);
@@ -138,6 +146,7 @@ public class AdministratorkompanijeServiceImpl implements Administratorkompanije
             opremadto.setOcena(oprema5.getOcena());
             opremadto.setOpis(oprema5.getOpis());
             opremadto.setTip(oprema5.getTip());
+            ukupnacena = ukupnacena + oprema5.getCena();
             svaopremaDTO.add(opremadto);
         }
 //        Oprema oprema5 = opremaRepository.pronadjipoid(idopreme);
@@ -146,12 +155,68 @@ public class AdministratorkompanijeServiceImpl implements Administratorkompanije
         Registrovanikorisnik regkorisnik1 = this.registrovanikorisnikRepository.pronadjipoid(idkorisnik);
 
             message.setTo(regkorisnik1.getEmailadresa());
-            message.setSubject("abc");
-            message.setText("abc");
+            message.setSubject("Preuzimanje opreme");
+            message.setText("Uspesno ste preuzeli opremu!");
             message.setFrom(env.getProperty("spring.mail.username"));
-
-
             javaMailSender.send(message);
+
+        String content = new Scanner(new File("output.txt")).useDelimiter("\\Z").next();
+
+        System.out.println(content);
+        String[] parts1 = content.split(";");
+        String brojpoena2 = parts1[4];
+        System.out.println(brojpoena2);
+        Integer brojpoena3 = Integer.parseInt(brojpoena2);
+
+
+        regkorisnik1.setBrojpoena(regkorisnik1.getBrojpoena()+brojpoena3);
+
+
+        String granica1 = parts1[0];
+        System.out.println(granica1);
+        Integer intgranica1 = Integer.parseInt(granica1);
+        String granica2 = parts1[1];
+        System.out.println(granica2);
+        Integer intgranica2 = Integer.parseInt(granica2);
+        String granica3 = parts1[2];
+        System.out.println(granica3);
+        Integer intgranica3 = Integer.parseInt(granica3);
+        String granica4 = parts1[3];
+        System.out.println(granica4);
+        Integer intgranica4 = Integer.parseInt(granica4);
+
+        System.out.println(granica1+granica2+granica3+granica4);
+        if(regkorisnik1.getBrojpoena()>=intgranica1 && regkorisnik1.getBrojpoena()<intgranica2)
+        {
+            regkorisnik1.setKategorija(Kategorija.REGULAR);
+            regkorisnik1.setBudzet(regkorisnik1.getBudzet()-ukupnacena/2);
+        }
+        else if(regkorisnik1.getBrojpoena()>=intgranica2 && regkorisnik1.getBrojpoena()<intgranica3)
+        {
+            regkorisnik1.setKategorija(Kategorija.SILVER);
+            regkorisnik1.setBudzet(regkorisnik1.getBudzet()-ukupnacena/5);
+        }
+        else if(regkorisnik1.getBrojpoena()>=intgranica3 && regkorisnik1.getBrojpoena()<intgranica4)
+        {
+            regkorisnik1.setKategorija(Kategorija.GOLD);
+            regkorisnik1.setBudzet(regkorisnik1.getBudzet()-ukupnacena/10);
+        }
+        else{
+            regkorisnik1.setKategorija(Kategorija.REGULAR);
+            regkorisnik1.setBudzet(regkorisnik1.getBudzet()-ukupnacena/2);
+        }
+
+
+        Registrovanikorisnik regkorisnik2 = this.registrovanikorisnikRepository.save(regkorisnik1);
+
+
+
+
+
+
+
+
+//            javaMailSender.send(message);
 
 //        opremaRepository.save(oprema5);
 //        OpremaDTO opremadto = new OpremaDTO();

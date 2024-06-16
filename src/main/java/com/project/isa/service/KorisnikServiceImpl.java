@@ -4,6 +4,9 @@ import com.project.isa.entity.*;
 import com.project.isa.repository.*;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -175,26 +178,36 @@ public class KorisnikServiceImpl implements KorisnikService{
 
 
     @Override
-    public void definisikategorije(String granica1, String granica2, String granica3, String granica4) throws Exception{
+    public String definisikategorije(String granica1, String granica2, String granica3, String granica4, String brojpoena) throws Exception{
 
 
 
-        String[] stringsToSave = {granica1, granica2, granica3, granica4};
+        String[] stringsToSave = {granica1, granica2, granica3, granica4, brojpoena};
 
         // Specify the file path
         String filePath = "output.txt";
 
         // Create an instance of the repository
-        KategorijeRepository repository = new KategorijeRepository(filePath);
+//        KategorijeRepository repository = new KategorijeRepository(filePath);
 
         // Save the strings using the repository
-        repository.saveStringsToFile(stringsToSave);
+//        repository.saveStringsToFile(stringsToSave);
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String str : stringsToSave) {
+
+                writer.write(str+";");
+
+            }
+            System.out.println("Stringovi sacuvani uspesno");
+        } catch (IOException e) {
+            System.err.println("Greska pri pisanju u datoteku!: " + e.getMessage());
+        }
 
 
 
-
-
-//        return svaoprema1;
+        return "Uspesno ste definisali kategorije!";
 
     }
 }

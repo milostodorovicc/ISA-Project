@@ -30,8 +30,14 @@ public class Registrovanikorisnik {
     private Integer brojpenala;
     @Column
     private String infoopred;
+    @Column
+    private Integer brojpoena;
+    @Column
+    private int budzet;
     @Enumerated(EnumType.STRING)
     private Uloga uloga;
+    @Enumerated(EnumType.STRING)
+    private Kategorija kategorija;
     @ManyToOne(fetch = FetchType.EAGER)
     private Kompanija kompanija;
     @OneToMany(mappedBy ="regkorisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -169,5 +175,32 @@ public class Registrovanikorisnik {
 
     public void setBrojpenala(Integer brojpenala) {
         this.brojpenala = brojpenala;
+    }
+
+
+    public Integer getBrojpoena() {
+        return brojpoena;
+    }
+
+    public void setBrojpoena(Integer brojpoena) {
+        this.brojpoena = brojpoena;
+    }
+
+
+    public int getBudzet() {
+        return budzet;
+    }
+
+    public void setBudzet(int budzet) {
+        this.budzet = budzet;
+    }
+
+
+    public Kategorija getKategorija() {
+        return kategorija;
+    }
+
+    public void setKategorija(Kategorija kategorija) {
+        this.kategorija = kategorija;
     }
 }
